@@ -24,3 +24,30 @@ def showform(request):
 def showprofile(request):
     student_details = StudntRegistration.objects.all()
     return render(request,'stdetails.html',{'stprofile':student_details})
+
+
+def edit(request,id):
+    edit = StudntRegistration.objects.get(pk=id)
+    updated = StudentRegForm(request.POST,instance=edit)
+    if updated.is_valid():
+        updated.save()
+    else:
+        edit = StudntRegistration.objects.get(pk=id)
+        updated = StudentRegForm(instance=edit)
+    return render(request,'update.html',{'updt':updated})
+
+
+
+def delete(request,id):
+    if request.method == 'POST':
+        delete = StudntRegistration.objects.get(id=id)
+        delete.delete()
+    return render(request,'home.html')
+
+
+
+
+
+
+
+
