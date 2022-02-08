@@ -10,10 +10,17 @@ def showform(request):
             Name = form.cleaned_data['name']
             Email = form.cleaned_data['email']
             Department = form.cleaned_data['department']
-            Mobile = form.cleaned_data['mobile']
+            Mobile = form.cleaned_data['mobno']
             studentdata =StudntRegistration(name=Name,email=Email, department= Department,mobno=Mobile)
             studentdata.save()
+            form = StudentRegForm()
     else:
         form = StudentRegForm()
 
     return render(request,'home.html',{'form':form})
+
+
+
+def showprofile(request):
+    student_details = StudntRegistration.objects.all()
+    return render(request,'stdetails.html',{'stprofile':student_details})
